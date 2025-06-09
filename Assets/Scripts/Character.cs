@@ -2,23 +2,24 @@
 
 public class Character : MonoBehaviour
 {
-    [Header("Name")]
-    public string userName;  
-    public string job;
-    public string description;
+    [field : Header("Name")]
+    [field : SerializeField] public string UserName { get; private set; }
+    [field : SerializeField] public string Job { get; private set; }
+    [field : SerializeField] public string Description { get; private set; }
 
-    [Header("Status")]
-    public int level;
-    public int atk;
-    public int def;
-    public int hp;      
-    public int crit;    //퍼센트로 해야되는데 float로? 아니면 1단위씩늘어나게?
-    public int curExp;  //현재 경험치
-    public int maxExp;  //레벨마다 총 경험치량이 늘어날테니 배열로
-    public string equiment;
+    [field: Header("Status")]
+    [field : SerializeField] public int Level { get; private set; }
+    [field : SerializeField] public int Atk { get; private set; }
+    [field : SerializeField] public int Def { get; private set; }
+    [field : SerializeField] public int Hp { get; private set; }
+    [field : SerializeField] public float Crit { get; private set; }
+    [field : SerializeField] public int CurExp { get; private set; }  
+    [field : SerializeField] public int MaxExp { get; private set; }  
+    [field : SerializeField] public string Equiment { get; private set; }
 
-    [Header("Resource")]
-    public int gold;
+    [field: Header("Resource")]
+    [field : SerializeField] public int Gold { get; private set; }
+
 
     [Header("GameManager")]
     GameManager gameManager;
@@ -26,5 +27,21 @@ public class Character : MonoBehaviour
     private void Start()
     {
         gameManager = GetComponent<GameManager>();
+    }
+
+
+    public void LevelUp()
+    {
+        if (CurExp > MaxExp)
+        {
+            int remainEXP = CurExp - MaxExp;
+            CurExp = remainEXP;
+            Level++;
+        }
+    }
+    public void GetEXP()
+    {
+        CurExp++;
+        LevelUp();
     }
 }

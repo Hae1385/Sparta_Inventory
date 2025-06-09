@@ -24,31 +24,29 @@ public class UIMainMenu : MonoBehaviour
 
     public void UpdateMainUI()
     {
-        Debug.Log(NickName);
-        Debug.Log(uiManager.gameManager.character.userName);
-        if (Jop != null && uiManager.gameManager.character.job != null)
-            Jop.text = uiManager.gameManager.character.job;
+        if (Jop != null && uiManager.gameManager.character.Job != null)
+            Jop.text = uiManager.gameManager.character.Job;
 
-        if (NickName != null && uiManager.gameManager.character.userName != null)
-            NickName.text = uiManager.gameManager.character.userName;
+        if (NickName != null && uiManager.gameManager.character.UserName != null)
+            NickName.text = uiManager.gameManager.character.UserName;
 
-        if (Description != null && uiManager.gameManager.character.description != null)
-            Description.text = uiManager.gameManager.character.description;
+        if (Description != null && uiManager.gameManager.character.Description != null)
+            Description.text = uiManager.gameManager.character.Description;
 
         if (Level != null)
-            Level.text = string.Format("{0:N0}", uiManager.gameManager.character.level);
+            Level.text = string.Format("{0:N0}", uiManager.gameManager.character.Level);
 
         if (EXP != null)
-            EXP.text = uiManager.gameManager.character.curExp + "/" + uiManager.gameManager.character.maxExp;
+            EXP.text = uiManager.gameManager.character.CurExp + "/" + uiManager.gameManager.character.MaxExp;
 
         if (Gold != null)
-            Gold.text = string.Format("{0:N0}", uiManager.gameManager.character.gold);
+            Gold.text = string.Format("{0:N0}", uiManager.gameManager.character.Gold);
 
         expBar.fillAmount = Getpercentage();
     }
 
     private float Getpercentage()
     {
-        return (float)uiManager.gameManager.character.curExp / uiManager.gameManager.character.maxExp;
+        return (float)uiManager.gameManager.character.CurExp / uiManager.gameManager.character.MaxExp;
     }
 }

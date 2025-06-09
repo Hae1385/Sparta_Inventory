@@ -19,19 +19,19 @@ public class UIStatus : MonoBehaviour
     {
         UpdateStatusUI();
     }
-    //Gold.text = string.Format("{0:N0}", uiManager.gameManager.character.gold);
+    
     public void UpdateStatusUI()
     {
         if (atkStat != null)
-            atkStat.text = string.Format("{0:N0}", uiManager.gameManager.character.atk);
+            atkStat.text = string.Format("{0:N0}", uiManager.gameManager.character.Atk);
 
         if (defStat != null)
-            defStat.text = string.Format("{0:N0}", uiManager.gameManager.character.def);
+            defStat.text = string.Format("{0:N0}", uiManager.gameManager.character.Def);
 
         if (hpStat != null)
-            hpStat.text = string.Format("{0:N0}", uiManager.gameManager.character.hp);
+            hpStat.text = string.Format("{0:N0}", uiManager.gameManager.character.Hp);
 
         if (critStat != null)
-            critStat.text = string.Format("{0:N0}", uiManager.gameManager.character.crit);
+            critStat.text = string.Format("{0:N0}", uiManager.gameManager.character.Crit);
     }
 }
