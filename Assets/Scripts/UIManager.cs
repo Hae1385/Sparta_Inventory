@@ -1,27 +1,53 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private UIMainMenu MainMenu;
-    [SerializeField] private UIStatus StatMenu;
-    [SerializeField] private UIInventory InvenMenu;
+    public static UIManager Instance {  get; private set; }
 
-    [SerializeField] TextMeshProUGUI Jop;
-    [SerializeField] TextMeshProUGUI NickName;
-    [SerializeField] TextMeshProUGUI Description;
-    [SerializeField] TextMeshProUGUI Level;
-    [SerializeField] TextMeshProUGUI EXP;
-    [SerializeField] TextMeshProUGUI Gold;
+    [SerializeField] private UIMainMenu mainMenu;
+    [SerializeField] private UIStatus statMenu;
+    [SerializeField] private UIInventory invenMenu;
+
+    public UIMainMenu MainMenu => mainMenu;
+    public UIStatus StatMenu => statMenu;
+    public UIInventory InvenMenu => invenMenu;
+
+    public Button StatButton;
+    public Button InvenButton;
+    public Button[] CancleButtons;
 
     public GameManager gameManager;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(this.gameObject);
+    }
     private void Start()
     {
         MainMenu.gameObject.SetActive(true);
         StatMenu.gameObject.SetActive(false);
         InvenMenu.gameObject.SetActive(false);
-        UpdateUI();
+
+        StatButton.onClick.AddListener(OnStatButton);
+        InvenButton.onClick.AddListener(OnInvenButton);
+        for (int i = 0; i<CancleButtons.Length; i++)
+        {
+            CancleButtons[i].onClick.AddListener(OnCancleButton);
+        }
+    }
+
+    private void Update()
+    {
+        mainMenu.UpdateMainUI();
     }
 
     public void OnStatButton()
@@ -56,26 +82,5 @@ public class UIManager : MonoBehaviour
         MainMenu.gameObject.SetActive(true);
         StatMenu.gameObject.SetActive(false);
         InvenMenu.gameObject.SetActive(false);
-    }
-
-    public void UpdateUI()
-    {
-        if (Jop != null && gameManager.character.job != null)
-            Jop.text = gameManager.character.job;
-
-        if (NickName != null && gameManager.character.userName != null)
-            NickName.text = gameManager.character.userName;
-
-        if (Description != null && gameManager.character.description != null)
-            Description.text = gameManager.character.description;
-
-        if (Level != null)
-            Level.text = gameManager.character.level + "";
-
-        if (EXP != null)
-            EXP.text = gameManager.character.curExp + "/" + gameManager.character.maxExp;
-
-        if (Gold != null)
-            Gold.text = string.Format("{0:N0}", gameManager.character.gold);
-    }
+    }   
 }

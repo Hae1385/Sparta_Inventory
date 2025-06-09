@@ -5845,6 +5845,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b068c99d8dd28bb45a68f3159957ec12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Jop: {fileID: 1885609279}
+  NickName: {fileID: 633891678}
+  Description: {fileID: 1090797626}
+  Level: {fileID: 1239647045}
+  EXP: {fileID: 2130011084}
+  Gold: {fileID: 742395528}
+  expBar: {fileID: 583007441}
 --- !u!224 &668577632 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 848072781924138406, guid: 7d04bf64982e44a49ab914da25229b54, type: 3}
@@ -6706,7 +6713,7 @@ GameObject:
   - component: {fileID: 840029344}
   - component: {fileID: 840029343}
   m_Layer: 5
-  m_Name: Button
+  m_Name: InvenCancle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10457,15 +10464,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e1f739f28f30a45818eed7231bbf73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenu: {fileID: 661120752}
-  StatMenu: {fileID: 1357404221}
-  InvenMenu: {fileID: 1474379021}
-  Jop: {fileID: 1885609279}
-  NickName: {fileID: 633891678}
-  Description: {fileID: 1090797626}
-  Level: {fileID: 1239647045}
-  EXP: {fileID: 2130011084}
-  Gold: {fileID: 742395528}
+  mainMenu: {fileID: 661120752}
+  statMenu: {fileID: 1357404221}
+  invenMenu: {fileID: 1474379021}
+  StatButton: {fileID: 2012933543}
+  InvenButton: {fileID: 1198576424}
+  CancleButtons:
+  - {fileID: 1651064288}
+  - {fileID: 840029343}
   gameManager: {fileID: 521930478}
 --- !u!1001 &1226685090
 PrefabInstance:
@@ -12890,6 +12896,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627f5809b628be042bc69dfdd9b69ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  atkStat: {fileID: 54786546}
+  defStat: {fileID: 1355453707}
+  hpStat: {fileID: 1805423953}
+  critStat: {fileID: 172208230}
 --- !u!1 &1373132515
 GameObject:
   m_ObjectHideFlags: 0
@@ -15843,7 +15853,7 @@ GameObject:
   - component: {fileID: 1651064289}
   - component: {fileID: 1651064288}
   m_Layer: 5
-  m_Name: Button
+  m_Name: StatCancle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16826,7 +16836,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 135, y: -15}
-  m_SizeDelta: {x: 70, y: 30}
+  m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1805423953
 MonoBehaviour:

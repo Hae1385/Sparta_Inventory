@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class UIInventory : MonoBehaviour
 {
-    
+    UIManager uiManager;
 
-
+    private void Awake()
+    {
+        uiManager = GetComponentInParent<UIManager>();
+    }
 }
