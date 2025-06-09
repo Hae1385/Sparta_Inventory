@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Character : MonoBehaviour
 {
@@ -31,17 +32,25 @@ public class Character : MonoBehaviour
 
 
     public void LevelUp()
-    {
-        if (CurExp > MaxExp)
+    {   
+        //만렙 999;
+        while (Level < 999 && CurExp >= MaxExp)
         {
-            int remainEXP = CurExp - MaxExp;
-            CurExp = remainEXP;
+            CurExp -= MaxExp;
             Level++;
+            MaxExp = (int)Math.Round(MaxExp * 1.2);
+
+            if (Level >= 999)
+            {
+                Level = 999;
+                CurExp = 0;
+                break;
+            }
         }
     }
-    public void GetEXP()
+    public void GetEXP(int getExp)
     {
-        CurExp++;
-        LevelUp();
+        CurExp += getExp;  //얻는 경험치
+        LevelUp();  //레벨업이 되는지 검사
     }
 }
