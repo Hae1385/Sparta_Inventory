@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    int baseExp = 12;
+
     [field : Header("Name")]
     [field : SerializeField] public string UserName { get; private set; }
     [field : SerializeField] public string Job { get; private set; }
@@ -28,6 +30,7 @@ public class Character : MonoBehaviour
     private void Start()
     {
         gameManager = GetComponent<GameManager>();
+        MaxExp = GetMaxExpForLevel(Level);
     }
 
 
@@ -38,7 +41,7 @@ public class Character : MonoBehaviour
         {
             CurExp -= MaxExp;
             Level++;
-            MaxExp = (int)Math.Round(MaxExp * 1.2);
+            MaxExp = GetMaxExpForLevel(Level);
 
             if (Level >= 999)
             {
@@ -52,5 +55,9 @@ public class Character : MonoBehaviour
     {
         CurExp += getExp;  //얻는 경험치
         LevelUp();  //레벨업이 되는지 검사
+    }
+    private int GetMaxExpForLevel(int level)
+    {
+        return (int)Math.Round(baseExp * Math.Pow(1.2, level - 1));
     }
 }

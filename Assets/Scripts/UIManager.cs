@@ -58,7 +58,7 @@ public class UIManager : MonoBehaviour
         }
 
         MainMenu.gameObject.SetActive(false);
-        StatMenu.gameObject.SetActive(true);
+        StatMenu.gameObject.SetActive(true); 
     }
 
     public void OnInvenButton()
