@@ -69,7 +69,7 @@ public class UIInventory : MonoBehaviour
 
     private void Update()
     {
-        UpdateUI();
+        
     }
 
     void ClearSelctedItemWindow()
@@ -86,6 +86,7 @@ public class UIInventory : MonoBehaviour
             if (slot != null)
             {
                 slot.quantity++;
+                UpdateUI();
                 return;
             }
         }
@@ -115,6 +116,7 @@ public class UIInventory : MonoBehaviour
                 return slots[i];
             }
         }
+        UpdateUI();
         return null;
     }
 
@@ -127,6 +129,7 @@ public class UIInventory : MonoBehaviour
                 return slots[i];
             }
         }
+        UpdateUI();
         return null;
     }
 
@@ -149,7 +152,6 @@ public class UIInventory : MonoBehaviour
 
     public void SelectItem(int index)
     {
-
         if (slots[index].ItemData == null) return;
 
         selectedItem = slots[index].ItemData;
@@ -170,8 +172,11 @@ public class UIInventory : MonoBehaviour
             {
                 SelecteEquipItem();
             }
+            equipButton.onClick.RemoveAllListeners();
+            unEquipButton.onClick.RemoveAllListeners();
             equipButton.onClick.AddListener(() => OnClickEquipButton(index, selectedItem.EquipStat.Type));
             unEquipButton.onClick.AddListener(() => OnClickUnequipButton(index));
+            UpdateUI();
         }
         else
         {
@@ -213,11 +218,14 @@ public class UIInventory : MonoBehaviour
         }
         if (slots[selected].ItemData != null)
             slots[selected].isEquipped = true;
+
+        UpdateUI();
     }
 
     public void OnClickUnequipButton(int selected)
     {
         slots[selected].isEquipped = false;
+        UpdateUI();
     }
 
     public EquipStats GetTotalEquipStat()
@@ -230,6 +238,7 @@ public class UIInventory : MonoBehaviour
                 total.Add(slots[i].ItemData.EquipStat);
             }
         }
+        UpdateUI();
         return total;
     }
 }
