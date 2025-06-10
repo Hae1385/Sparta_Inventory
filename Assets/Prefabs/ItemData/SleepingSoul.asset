@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce97b36fb249a664998ea5cacee39040, type: 3}
+  m_Name: SleepingSoul
+  m_EditorClassIdentifier: 
+  ItemName: "\uC7A0\uB4E0 \uC601\uD63C"
+  description: "\uBAA8\uC544\uC11C \uB300\uC7A5\uC7A5\uC774\uC5D0\uAC8C \uCC3E\uC544\uAC00\uBA74
+    \uC18C\uC6B8\uC6E8\uD380\uC73C\uB85C \uB9CC\uB4E4 \uC218 \uC788\uC2B5\uB2C8\uB2E4"
+  type: 1
+  icon: {fileID: 21300000, guid: 9cb9c99454993df40adec1c4f81f5339, type: 3}
+  canStack: 1
+  maxStackAmount: 3
+  EquipStat: []
