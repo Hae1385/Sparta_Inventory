@@ -45,13 +45,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        mainMenu.UpdateMainUI();
-    }
-
     public void OnStatButton()
     {
+        statMenu.UpdateStatusUI();
         if (this == null || StatMenu == null)
         {
             return;

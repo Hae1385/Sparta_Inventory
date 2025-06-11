@@ -18,6 +18,11 @@ public class UIMainMenu : MonoBehaviour
         uiManager = GetComponentInParent<UIManager>();
     }
 
+    private void Start()
+    {
+        UpdateMainUI();
+    }
+
     public void UpdateMainUI()
     {
         if (Jop != null && uiManager.gameManager.character.Job != null)

@@ -159,13 +159,12 @@ public class UIInventory : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        if (slots[index].ItemData.type == ItemType.Equipable)  //만약에 아이템 타입이 장비라면
+        if (selectedItem.type == ItemType.Equipable)  //만약에 아이템 타입이 장비라면
         {
             equipButtons.SetActive(true);  //장착 버튼 활성화
-            if (selectedItem.type == ItemType.Equipable)  //혹시 모르니 한번더 검사
-            {
-                SelecteEquipItem();  //장착한 장비의 능력치를 검사 및 출력
-            }
+            
+            SelecteEquipItem();  //장착한 장비의 능력치를 검사 및 출력
+            
             equipButton.onClick.RemoveAllListeners();    //초기화
             unEquipButton.onClick.RemoveAllListeners();
             equipButton.onClick.AddListener(() => OnClickEquipButton(index, selectedItem.EquipStat.Type));  //장착버튼
@@ -210,6 +209,7 @@ public class UIInventory : MonoBehaviour
                 }
             }
         }
+
         if (slots[selected].ItemData != null)  
             slots[selected].isEquipped = true;  //해당장비 장착
 

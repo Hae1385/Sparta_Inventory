@@ -29,7 +29,7 @@ public class Character : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GetComponent<GameManager>();
+        gameManager = GameManager.Instance;
         MaxExp = GetMaxExpForLevel(Level);
     }
 
@@ -55,6 +55,7 @@ public class Character : MonoBehaviour
     {
         CurExp += getExp;  //얻는 경험치
         LevelUp();  //레벨업이 되는지 검사
+        gameManager.uiManager.MainMenu.UpdateMainUI();
     }
     private int GetMaxExpForLevel(int level)
     {   //기존 최대 경험치에서 1.2를 계속 곱했더니 시작레벨을 2로놔도 12로 시작하는 현상이 발생해서 따로 시작경험치를 준비

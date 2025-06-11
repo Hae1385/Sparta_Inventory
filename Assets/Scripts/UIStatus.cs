@@ -16,11 +16,6 @@ public class UIStatus : MonoBehaviour
     {
         uiManager = GetComponentInParent<UIManager>();
     }
-
-    private void Update()
-    {
-        UpdateStatusUI();
-    }
     
     public void UpdateStatusUI()
     {
