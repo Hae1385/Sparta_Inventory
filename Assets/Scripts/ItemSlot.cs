@@ -35,7 +35,7 @@ public class ItemSlot : MonoBehaviour
         {
             outline.enabled = isEquipped;
             if (isEquipped)
-                quantityText.text = "E";
+                quantityText.text = "E";   //장착된 장비는 수량란에 E표시
         }
     }
 
