@@ -17,10 +17,6 @@ public class UIMainMenu : MonoBehaviour
     {
         uiManager = GetComponentInParent<UIManager>();
     }
-    private void Update()
-    {
-        
-    }
 
     public void UpdateMainUI()
     {

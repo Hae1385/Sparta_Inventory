@@ -18,7 +18,7 @@ public class Character : MonoBehaviour
     [field : SerializeField] public float Crit { get; private set; }
     [field : SerializeField] public int CurExp { get; private set; }  
     [field : SerializeField] public int MaxExp { get; private set; }  
-    [field : SerializeField] public string Equiment { get; private set; }
+    //[field : SerializeField] public string Equiment { get; private set; }
 
     [field: Header("Resource")]
     [field : SerializeField] public int Gold { get; private set; }
