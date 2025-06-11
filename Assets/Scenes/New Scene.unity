@@ -5942,7 +5942,7 @@ GameObject:
   - component: {fileID: 661120749}
   - component: {fileID: 661120752}
   m_Layer: 5
-  m_Name: MainMenu
+  m_Name: MainMenu [UIMainMenu]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11180,7 +11180,7 @@ GameObject:
   - component: {fileID: 1226317159}
   - component: {fileID: 1226317163}
   m_Layer: 5
-  m_Name: UI
+  m_Name: UI [UIManager]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20972,7 +20972,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2008398233}
+  - {fileID: 521930479}
   - {fileID: 1767674791}
   - {fileID: 1226317162}
   - {fileID: 332488927}
-  - {fileID: 521930479}

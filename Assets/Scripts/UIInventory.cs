@@ -44,7 +44,6 @@ public class UIInventory : MonoBehaviour
 
     ItemData selectedItem;
     int selectedItemIndex = 0;
-    //public EquimentType equimentType;
 
     private void Awake()
     {
@@ -65,11 +64,6 @@ public class UIInventory : MonoBehaviour
             ClearSelctedItemWindow();
         }
 
-    }
-
-    private void Update()
-    {
-        
     }
 
     void ClearSelctedItemWindow()
