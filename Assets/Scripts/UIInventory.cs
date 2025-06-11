@@ -152,35 +152,35 @@ public class UIInventory : MonoBehaviour
 
     public void SelectItem(int index)
     {
-        if (slots[index].ItemData == null) return;
+        if (slots[index].ItemData == null) return;  
 
-        selectedItem = slots[index].ItemData;
+        selectedItem = slots[index].ItemData;  
         selectedItemIndex = index;
 
-        ItemName.text = selectedItem.ItemName;
-        ItemDescription.text = selectedItem.description;
+        ItemName.text = selectedItem.ItemName;  //선택한 아이템의 이름을출력
+        ItemDescription.text = selectedItem.description;  //선택한 아이템의 정보를 출력
 
-        foreach (Transform child in ItemStatSlot)
-        {
+        foreach (Transform child in ItemStatSlot)  //장비아이템 스텟슬롯에 있는 오브젝트 삭제
+        { 
             Destroy(child.gameObject);
         }
 
-        if (slots[index].ItemData.type == ItemType.Equipable)
+        if (slots[index].ItemData.type == ItemType.Equipable)  //만약에 아이템 타입이 장비라면
         {
-            equipButtons.SetActive(true);
-            if (selectedItem.type == ItemType.Equipable)
+            equipButtons.SetActive(true);  //장착 버튼 활성화
+            if (selectedItem.type == ItemType.Equipable)  //혹시 모르니 한번더 검사
             {
-                SelecteEquipItem();
+                SelecteEquipItem();  //장착한 장비의 능력치를 검사 및 출력
             }
-            equipButton.onClick.RemoveAllListeners();
+            equipButton.onClick.RemoveAllListeners();    //초기화
             unEquipButton.onClick.RemoveAllListeners();
-            equipButton.onClick.AddListener(() => OnClickEquipButton(index, selectedItem.EquipStat.Type));
-            unEquipButton.onClick.AddListener(() => OnClickUnequipButton(index));
+            equipButton.onClick.AddListener(() => OnClickEquipButton(index, selectedItem.EquipStat.Type));  //장착버튼
+            unEquipButton.onClick.AddListener(() => OnClickUnequipButton(index));  //해제버튼
             UpdateUI();
         }
         else
         {
-            equipButtons.SetActive(false);
+            equipButtons.SetActive(false); //장비가아니면 장착버튼 비활성화
         }
     }
 
@@ -193,11 +193,11 @@ public class UIInventory : MonoBehaviour
                 selectedItem.EquipStat.crit,
                 selectedItem.EquipStat.hp
                 };
-        for (int i = 0; i < statNames.Length; i++)
+        for (int i = 0; i < statNames.Length; i++)  //atk def crit hp 총 네개만큼 반복
         {
-            if (statValues[i] != 0)
-            {
-                GameObject statObj = Instantiate(ItemStat, ItemStatSlot);
+            if (statValues[i] != 0)  //스텟이 0이되면 출력이 되지않도록 작성
+            {   //스텟이 0이아니라면 예)atk 10 등과같이 출력되게 조치
+                GameObject statObj = Instantiate(ItemStat, ItemStatSlot);  
                 ItemStatValue statValueScript = statObj.GetComponent<ItemStatValue>();
                 statValueScript.SetStat(statNames[i], statValues[i]);
             }
@@ -206,39 +206,39 @@ public class UIInventory : MonoBehaviour
 
     public void OnClickEquipButton(int selected, EquimentType type)
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Length; i++)  //모든 슬롯을 검사해서
         {
-            if (slots[i].ItemData != null && slots[i].ItemData.EquipStat != null)
+            if (slots[i].ItemData != null && slots[i].ItemData.EquipStat != null) 
             {
-                if (i != selected && slots[i].ItemData.EquipStat.Type == type)
+                if (i != selected && slots[i].ItemData.EquipStat.Type == type)  //장착한 장비타입과 동일한 장비타입이 있으면
                 {
-                    slots[i].isEquipped = false;
+                    slots[i].isEquipped = false;  //장착해제
                 }
             }
         }
-        if (slots[selected].ItemData != null)
-            slots[selected].isEquipped = true;
+        if (slots[selected].ItemData != null)  
+            slots[selected].isEquipped = true;  //해당장비 장착
 
         UpdateUI();
     }
 
     public void OnClickUnequipButton(int selected)
     {
-        slots[selected].isEquipped = false;
+        slots[selected].isEquipped = false;  //선택한 장비를 isEquipped = false로 변경
         UpdateUI();
     }
 
-    public EquipStats GetTotalEquipStat()
+    public EquipStats GetTotalEquipStat()  //장비의 모든 스텟을 계산해서 저장
     {
-        EquipStats total = new EquipStats();
-        for (int i = 0; i < slots.Length;i++)
-        {
+        EquipStats total = new EquipStats();  //atk = 0; def = 0; crit = 0; hp = 0;
+        for (int i = 0; i < slots.Length;i++)  //슬롯에 있는 아이템을검사해
+        {    //isEquipped가 true인 장비만 검사
             if (slots[i].isEquipped && slots[i].ItemData != null && slots[i].ItemData.EquipStat != null)
             {
-                total.Add(slots[i].ItemData.EquipStat);
+                total.Add(slots[i].ItemData.EquipStat);  //반복해서 모든 스텟을 더해주고
             }
         }
-        UpdateUI();
-        return total;
+        UpdateUI();  
+        return total; //더해준 모든 스텟을 반환
     }
 }

@@ -24,7 +24,9 @@ public class UIStatus : MonoBehaviour
     
     public void UpdateStatusUI()
     {
-        equipstat = uiManager.InvenMenu.GetTotalEquipStat();
+        equipstat = uiManager.InvenMenu.GetTotalEquipStat(); //현재 장비의 능력치를 합산
+
+        //장비의 스텟을 검사해 0이면 현 능력치만 출력 0이 아니라면 능력치 + 장비능력치가 출력
         if (atkStat != null)
             atkStat.text = equipstat.atk != 0 ? $"{uiManager.gameManager.character.Atk} + {equipstat.atk}" : $"{uiManager.gameManager.character.Atk}";
 

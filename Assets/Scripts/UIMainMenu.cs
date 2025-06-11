@@ -42,10 +42,10 @@ public class UIMainMenu : MonoBehaviour
         if (Gold != null)
             Gold.text = string.Format("{0:N0}", uiManager.gameManager.character.Gold);
 
-        expBar.fillAmount = Getpercentage();
+        expBar.fillAmount = Getpercentage();  //퍼센트를 계산해서 UI의 exp바의 fillAmount를 조정
     }
 
-    private float Getpercentage()
+    private float Getpercentage()  //퍼센트를 계산
     {
         return (float)uiManager.gameManager.character.CurExp / uiManager.gameManager.character.MaxExp;
     }
