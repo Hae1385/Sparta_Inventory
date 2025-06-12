@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,8 +30,12 @@ public class EquipStats
 public class UIInventory : MonoBehaviour
 {
     UIManager uiManager;
+    public int maxItemSlotLength = 119;
+    public TextMeshProUGUI inventorySlotstext;
 
-    public ItemSlot[] slots;
+
+    public List<ItemSlot> slots = new List<ItemSlot>();
+    public GameObject slotPrefab;
     public Transform slotPanel;
     public List<ItemData> randomItems = new List<ItemData>();
 
@@ -53,17 +59,15 @@ public class UIInventory : MonoBehaviour
 
     private void Start()
     {
-        slots = new ItemSlot[slotPanel.childCount];
-
-        for (int i = 0; i < slots.Length; i++)
+        slots.Clear();
+        for (int i = 0; i < slotPanel.childCount; i++)
         {
-            slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
-            slots[i].index = i;
-            slots[i].inventory = this;
-
+            ItemSlot slot = slotPanel.GetChild(i).GetComponent<ItemSlot>();
+            slot.index = i;
+            slot.inventory = this;
+            slots.Add(slot);
             ClearSelctedItemWindow();
         }
-
     }
 
     void ClearSelctedItemWindow()
@@ -103,7 +107,7 @@ public class UIInventory : MonoBehaviour
 
     ItemSlot GetItemStack(ItemData data)
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Count; i++)
         {
             if (slots[i].ItemData == data && slots[i].quantity < data.maxStackAmount)
             {
@@ -116,20 +120,29 @@ public class UIInventory : MonoBehaviour
 
     ItemSlot GetEmptySlot()
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Count; i++)
         {
             if (slots[i].ItemData == null)
             {
                 return slots[i];
             }
         }
-        UpdateUI();
-        return null;
+        // 비어있는 슬롯이 없고, 최대 슬롯 수 미만이면 새 슬롯 생성
+        if (slots.Count < maxItemSlotLength)
+        {
+            CreateNewSlot();
+            return slots[slots.Count - 1]; // 새로 만든 슬롯 반환
+        }
+        return null; // 슬롯 초과 시 null
     }
 
     private void UpdateUI()
     {
-        for (int i = 0; i < slots.Length; i++)
+        if (slots.Count == 0)
+        {
+            return;
+        }
+        for (int i = 0; i < slots.Count; i++)
         {
             if (slots[i].ItemData == null)
             {
@@ -142,6 +155,7 @@ public class UIInventory : MonoBehaviour
                 slots[i].InItem();
             }
         }
+        inventorySlotstext.text = slots.Count + "/" + (maxItemSlotLength + 1);
     }
 
     public void SelectItem(int index)
@@ -199,7 +213,7 @@ public class UIInventory : MonoBehaviour
 
     public void OnClickEquipButton(int selected, EquimentType type)
     {
-        for (int i = 0; i < slots.Length; i++)  //모든 슬롯을 검사해서
+        for (int i = 0; i < slots.Count; i++)  //모든 슬롯을 검사해서
         {
             if (slots[i].ItemData != null && slots[i].ItemData.EquipStat != null) 
             {
@@ -225,7 +239,7 @@ public class UIInventory : MonoBehaviour
     public EquipStats GetTotalEquipStat()  //장비의 모든 스텟을 계산해서 저장
     {
         EquipStats total = new EquipStats();  //atk = 0; def = 0; crit = 0; hp = 0;
-        for (int i = 0; i < slots.Length;i++)  //슬롯에 있는 아이템을검사해
+        for (int i = 0; i < slots.Count; i++)  //슬롯에 있는 아이템을검사해
         {    //isEquipped가 true인 장비만 검사
             if (slots[i].isEquipped && slots[i].ItemData != null && slots[i].ItemData.EquipStat != null)
             {
@@ -234,5 +248,16 @@ public class UIInventory : MonoBehaviour
         }
         UpdateUI();  
         return total; //더해준 모든 스텟을 반환
+    }
+
+    void CreateNewSlot()
+    {
+        if (slots.Count > maxItemSlotLength) return; // 120개 초과 방지
+
+        GameObject newSlotObj = Instantiate(slotPrefab, slotPanel);
+        ItemSlot newSlot = newSlotObj.GetComponent<ItemSlot>();
+        newSlot.index = slots.Count;
+        newSlot.inventory = this;
+        slots.Add(newSlot);
     }
 }
