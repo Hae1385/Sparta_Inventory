@@ -133,7 +133,7 @@ public class UIInventory : MonoBehaviour
             CreateNewSlot();
             return slots[slots.Count - 1]; // 새로 만든 슬롯 반환
         }
-        return null; // 슬롯 초과 시 null
+        return null; //슬롯초과시 생성 x
     }
 
     private void UpdateUI()
