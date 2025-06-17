@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,11 +28,11 @@ public class EquipStats
 public class UIInventory : MonoBehaviour
 {
     UIManager uiManager;
-    public int maxItemSlotLength = 119;
+    public int maxItemSlotCount = 119;
     public TextMeshProUGUI inventorySlotstext;
 
 
-    public List<ItemSlot> slots = new List<ItemSlot>();
+    
     public GameObject slotPrefab;
     public Transform slotPanel;
     public List<ItemData> randomItems = new List<ItemData>();
@@ -76,6 +74,11 @@ public class UIInventory : MonoBehaviour
         ItemDescription.text = string.Empty;
     }
 
+    public void AddRandomItem()
+    {
+        AddItem(randomItems[Random.Range(0, randomItems.Count)]);
+    }
+
     public void AddItem(ItemData data)
     {
         if (data.canStack)
@@ -100,10 +103,6 @@ public class UIInventory : MonoBehaviour
         }
     }
 
-    public void AddRandomItem()
-    {
-        AddItem(randomItems[Random.Range(0, randomItems.Count)]);
-    }
 
     ItemSlot GetItemStack(ItemData data)
     {
@@ -128,7 +127,7 @@ public class UIInventory : MonoBehaviour
             }
         }
         // 비어있는 슬롯이 없고, 최대 슬롯 수 미만이면 새 슬롯 생성
-        if (slots.Count < maxItemSlotLength)
+        if (slots.Count < maxItemSlotCount)
         {
             CreateNewSlot();
             return slots[slots.Count - 1]; // 새로 만든 슬롯 반환
@@ -155,40 +154,12 @@ public class UIInventory : MonoBehaviour
                 slots[i].InItem();
             }
         }
-        inventorySlotstext.text = slots.Count + "/" + (maxItemSlotLength + 1);
+        inventorySlotstext.text = slots.Count + "/" + (maxItemSlotCount + 1);
     }
 
-    public void SelectItem(int index)
+    public void SelectItem()
     {
-        if (slots[index].ItemData == null) return;  
-
-        selectedItem = slots[index].ItemData;  
-        selectedItemIndex = index;
-
-        ItemName.text = selectedItem.ItemName;  //선택한 아이템의 이름을출력
-        ItemDescription.text = selectedItem.description;  //선택한 아이템의 정보를 출력
-
-        foreach (Transform child in ItemStatSlot)  //장비아이템 스텟슬롯에 있는 오브젝트 삭제
-        { 
-            Destroy(child.gameObject);
-        }
-
-        if (selectedItem.type == ItemType.Equipable)  //만약에 아이템 타입이 장비라면
-        {
-            equipButtons.SetActive(true);  //장착 버튼 활성화
-            
-            SelecteEquipItem();  //장착한 장비의 능력치를 검사 및 출력
-            
-            equipButton.onClick.RemoveAllListeners();    //초기화
-            unEquipButton.onClick.RemoveAllListeners();
-            equipButton.onClick.AddListener(() => OnClickEquipButton(index, selectedItem.EquipStat.Type));  //장착버튼
-            unEquipButton.onClick.AddListener(() => OnClickUnequipButton(index));  //해제버튼
-            UpdateUI();
-        }
-        else
-        {
-            equipButtons.SetActive(false); //장비가아니면 장착버튼 비활성화
-        }
+        
     }
 
     public void SelecteEquipItem()
@@ -211,7 +182,7 @@ public class UIInventory : MonoBehaviour
         }
     }
 
-    public void OnClickEquipButton(int selected, EquimentType type)
+    public void OnClickEquipButton(EquimentType type)
     {
         for (int i = 0; i < slots.Count; i++)  //모든 슬롯을 검사해서
         {
@@ -225,14 +196,14 @@ public class UIInventory : MonoBehaviour
         }
 
         if (slots[selected].ItemData != null)  
-            slots[selected].isEquipped = true;  //해당장비 장착
+            //slots[selected].isEquipped = true;  //해당장비 장착
 
         UpdateUI();
     }
 
     public void OnClickUnequipButton(int selected)
     {
-        slots[selected].isEquipped = false;  //선택한 장비를 isEquipped = false로 변경
+        //slots[selected].isEquipped = false;  //선택한 장비를 isEquipped = false로 변경
         UpdateUI();
     }
 
@@ -252,7 +223,7 @@ public class UIInventory : MonoBehaviour
 
     void CreateNewSlot()
     {
-        if (slots.Count > maxItemSlotLength) return; // 120개 초과 방지
+        if (slots.Count > maxItemSlotCount) return; // 120개 초과 방지
 
         GameObject newSlotObj = Instantiate(slotPrefab, slotPanel);
         ItemSlot newSlot = newSlotObj.GetComponent<ItemSlot>();
